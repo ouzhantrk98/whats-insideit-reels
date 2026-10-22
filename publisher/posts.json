@@ -1,0 +1,26 @@
+[
+  {
+    "id": "inside-a-lock",
+    "file": "videos/inside-a-lock.mp4",
+    "publish_at": "2026-10-24T15:00:00+00:00",
+    "thumb_offset_ms": 1800,
+    "caption": "What actually happens inside a lock when you turn the key 🔑\n\nFive pairs of pins, one line, and 0.8 mm that decides whether it opens.\n\nWhat should we open next? 👇\n\n#howitworks #engineering #3danimation #lock #satisfying",
+    "approved": false
+  },
+  {
+    "id": "inside-a-fusion-reactor",
+    "file": "videos/inside-a-fusion-reactor.mp4",
+    "publish_at": "2026-10-25T15:00:00+00:00",
+    "thumb_offset_ms": 3500,
+    "caption": "Ten times hotter than the Sun's core, a few metres from magnets colder than Pluto ☀️🧊\n\nInside a fusion reactor. Figures are ITER design values; research operations are planned from 2034.\n\nWhat should we open next? 👇\n\n#fusion #ITER #physics #science #3danimation",
+    "approved": false
+  },
+  {
+    "id": "what-if-everyone-got-a-million",
+    "file": "videos/what-if-everyone-got-a-million.mp4",
+    "publish_at": "2026-10-26T15:00:00+00:00",
+    "thumb_offset_ms": 1500,
+    "caption": "What if everyone on Earth got $1,000,000? 💸\n\nThe math gets strange fast. Simplest economic model, not a forecast. Sources: UN, World Bank, IMF, BLS, NASA, US BEP.\n\nWhat would you buy first? 👇\n\n#money #economics #whatif #inflation #finance",
+    "approved": false
+  }
+]
