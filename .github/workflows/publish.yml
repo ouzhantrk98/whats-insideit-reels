@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: "5 * * * *" # hourly; publish.py posts at most one due Reel per run
   workflow_dispatch:
+    inputs:
+      check:
+        description: "Only verify the Instagram token and quota; publish nothing"
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency: publish
@@ -16,7 +21,7 @@ jobs:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
-        run: python3 publisher/publish.py
+        run: python3 publisher/publish.py ${{ inputs.check && '--check' || '' }}
       - name: Save state
         run: |
           git config user.name "reels-bot"
