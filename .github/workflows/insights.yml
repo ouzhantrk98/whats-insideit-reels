@@ -1,0 +1,23 @@
+name: Collect Reel insights
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily; Meta says metrics can lag up to 48 h
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: publish
+jobs:
+  insights:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Snapshot metrics
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: cd publisher && python3 insights.py
+      - name: Save snapshot
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "reels-bot@users.noreply.github.com"
+          git add publisher/insights.csv
+          git diff --cached --quiet || (git commit -m "Insights snapshot" && git push)

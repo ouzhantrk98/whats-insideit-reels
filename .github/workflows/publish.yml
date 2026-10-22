@@ -1,0 +1,25 @@
+name: Publish due Reel
+on:
+  schedule:
+    - cron: "5 * * * *" # hourly; publish.py posts at most one due Reel per run
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: publish
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+        run: python3 publisher/publish.py
+      - name: Save state
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "reels-bot@users.noreply.github.com"
+          git add publisher/state.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "Record published Reel" && git push)
