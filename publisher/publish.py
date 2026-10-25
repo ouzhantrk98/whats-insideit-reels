@@ -61,13 +61,17 @@ def publish(post: dict) -> dict:
     if os.environ.get("DRY_RUN"):
         print(f"[dry run] would publish {post['id']} from {video_url}")
         return {}
-    container = call("POST", f"{user}/media", {
+    params = {
         "media_type": "REELS",
         "video_url": video_url,
         "caption": post["caption"],
         "share_to_feed": "true",
         "thumb_offset": str(post.get("thumb_offset_ms", 0)),
-    })["id"]
+    }
+    # A designed cover image (e.g. covers/<id>.jpg) replaces the video frame on the grid.
+    if post.get("cover"):
+        params["cover_url"] = f"{env('PUBLIC_BASE_URL').rstrip('/')}/{post['cover']}"
+    container = call("POST", f"{user}/media", params)["id"]
     # Meta suggests polling about once a minute; Reels usually finish within a few minutes.
     for _ in range(20):
         status = call("GET", container, {"fields": "status_code,status"})
